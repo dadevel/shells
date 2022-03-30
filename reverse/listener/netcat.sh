@@ -1,0 +1,1 @@
+nc -lnvp §LPORT§
