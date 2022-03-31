@@ -1,1 +1,3 @@
-# Reverse, Bind & Web Shells
+# Shells
+
+> A collection of reverse, bind and web shells.
