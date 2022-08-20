@@ -93,7 +93,7 @@ def random_string(length: int) -> str:
 def render_template(text: str, variables: dict[str, str]) -> str:
     replacements = {re.escape(k): v for k, v in variables.items()}
     pattern = re.compile('|'.join(replacements.keys()))
-    return pattern.sub(lambda m: replacements[re.escape(m.group(0))], text)
+    return pattern.sub(lambda m: replacements[re.escape(m.group(0))] if m.group(0) else '', text)
 
 
 if __name__ == '__main__':
