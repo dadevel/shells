@@ -4,8 +4,8 @@
 
 Spotlight:
 
-- [TCP reverse shell for multiple platforms with Cosmopolitan](./reverse/connector/cosmopolitan/)
-- [TCP reverse shell for multiple architectures in Go](./reverse/connector/golang/)
+- [TCP reverse shell with Cosmopolitan Libc](./reverse/connector/cosmopolitan/)
+- [TCP reverse shell in Go](./reverse/connector/golang/)
 - [Reverse shell listener with Tmux and Socat](./reverse/listener/tmux-socat-multiplexer/)
 - [Python dropper utilizing `memfd_create()` on Linux](./dropper/memfd-create.py)
 - [Python dropper that jumps to shellcode on Linux](./dropper/mmap-ctype.py)

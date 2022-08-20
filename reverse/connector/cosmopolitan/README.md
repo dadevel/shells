@@ -1,6 +1,6 @@
-# TCP reverse shell for multiple platforms with Cosmopolitan
+# TCP reverse shell with Cosmopolitan Libc
 
-Thanks to the dark magic of [cosmopolitan](https://github.com/jart/cosmopolitan/) the resulting binary can run on Linux, Windows and MacOS.
+Thanks to the dark magic of [Cosmopolitan](https://github.com/jart/cosmopolitan/) the resulting binary runs natively on Linux, Windows and MacOS.
 
 ## Usage
 
