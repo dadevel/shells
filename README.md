@@ -4,6 +4,7 @@
 
 Spotlight:
 
+- [TCP reverse shell in C++ as Windows DLL](./reverse/connector/windows-cpp/)
 - [TCP reverse shell with Cosmopolitan Libc](./reverse/connector/cosmopolitan/)
 - [TCP reverse shell in Go](./reverse/connector/golang/)
 - [Reverse shell listener with Tmux and Socat](./reverse/listener/tmux-socat-multiplexer/)
