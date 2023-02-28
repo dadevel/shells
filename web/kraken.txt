@@ -1,0 +1,1 @@
+modular multi-language webshell, see https://github.com/kraken-ng/kraken
