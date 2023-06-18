@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "genshell"
+version = "0.5.0"
+description = "Web, bind and reverse shell generator"
+authors = ["dadevel <dadevel@disroot.org>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "genshell"}]
+
+[tool.poetry.scripts]
+genshell = "genshell.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+jinja2 = "^3.1.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
