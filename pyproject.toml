@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "genshell"
-version = "0.5.0"
+version = "0.5.1"
 description = "Web, bind and reverse shell generator"
 authors = ["dadevel <dadevel@disroot.org>"]
 license = "MIT"

