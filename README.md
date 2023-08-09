@@ -44,9 +44,8 @@ Spawn a PTY and stabilize your shell with Python.
 python -c 'import pty;pty.spawn("/bin/bash")'
 # ctrl+z
 echo "stty sane;stty rows $LINES cols $COLUMNS;export TERM=xterm;" | xclip -sel clip
-stty raw -echo
-fg
-# paste clipboard
+stty raw -echo && fg
+# paste clipboard and press enter
 ~~~
 
 Alternatively spawn a PTY with `script`.
