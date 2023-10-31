@@ -127,6 +127,11 @@ def base64_encode(data: bytes) -> str:
     return base64.b64encode(data).decode('ascii')
 
 
+def hex_encode(data: bytes) -> str:
+    it = iter(data.hex())
+    return ''.join('\\x' + c + next(it) for c in it)
+
+
 def shell_quote(data: str) -> str:
     assert isinstance(data, str)
     return shlex.quote(data)
@@ -137,6 +142,7 @@ def build_jinja_env(loader: jinja2.BaseLoader) -> jinja2.Environment:
     env.filters['utf8'] = utf8_encode
     env.filters['utf16le'] = utf16le_encode
     env.filters['base64'] = base64_encode
+    env.filters['hex'] = hex_encode
     env.filters['shellquote'] = shell_quote
     return env
 
@@ -154,3 +160,7 @@ def grep_variables(env: jinja2.Environment, text: str) -> Generator[str, None, N
         if template_name:
             text, *_ = env.loader.get_source(env, template_name)
             yield from grep_variables(env, text)
+
+
+if __name__ == '__main__':
+    main()
