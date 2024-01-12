@@ -13,7 +13,7 @@ import subprocess
 import jinja2
 import jinja2.meta
 
-from genshell import templates as templates_pkg
+from getshell import templates as templates_pkg
 
 KNOWN_VARIABLES = {'LHOST', 'LPORT', 'RPORT', 'SRVURL'}
 

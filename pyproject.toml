@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "genshell"
+name = "getshell"
 version = "0.5.1"
 description = "Web, bind and reverse shell generator"
 authors = ["dadevel <dadevel@disroot.org>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "genshell"}]
+packages = [{include = "getshell"}]
 
 [tool.poetry.scripts]
-genshell = "genshell.main:main"
+getshell = "getshell.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.11"
