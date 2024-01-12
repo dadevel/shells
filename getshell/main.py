@@ -15,7 +15,7 @@ import jinja2.meta
 
 from getshell import templates as templates_pkg
 
-KNOWN_VARIABLES = {'LHOST', 'LPORT', 'RPORT', 'SRVURL'}
+KNOWN_VARIABLES = {'LHOST', 'LPORT', 'RHOST', 'RPORT', 'SRVURL'}
 
 
 def main() -> None:
@@ -60,6 +60,8 @@ def ask_variables(opts: Namespace, variables: set[str]) -> dict[str, Any]:
         result['LHOST'] = addresses[0]
     if 'LPORT' in variables and not result.get('LPORT'):
         result['LPORT'] = fzf(prompt='local port: ', query='1337')
+    if 'RHOST' in variables and not result.get('RHOST'):
+        result['RHOST'] = fzf(prompt='remote host: ')
     if 'RPORT' in variables and not result.get('RPORT'):
         result['RPORT'] = fzf(prompt='remote port: ', query='1337')
     if 'SRVURL' in variables and not result.get('SRVURL'):
