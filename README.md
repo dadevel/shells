@@ -20,17 +20,17 @@ pip install --user git+https://github.com/dadevel/shells.git@main
 
 ## Usage
 
-Just run `genshell` and select one of the many templates.
+Just run `getshell` and select one of the many templates.
 
 Some advanced templates require manual steps:
 
-- [TCP reverse shell in C++ as Windows DLL](./genshell/templates/reverse/connector/windows-cpp/)
-- [TCP reverse shell with Cosmopolitan Libc](./genshell/templates/reverse/connector/cosmopolitan/)
-- [TCP reverse shell in Go](./genshell/templates/reverse/connector/golang/)
-- [Reverse shell listener with Tmux and Socat](./genshell/templates/reverse/listener/tmux-socat-multiplexer/)
-- [Python ELF loader via `memfd_create()` on Linux](./genshell/templates/exec/memfd-create.py)
-- [Python shellcode loader on Linux](./genshell/templates/exec/mmap-ctype.py)
-- [Meterpreter loader for Windows](./genshell/templates/exec/windows-minildr/)
+- [TCP reverse shell in C++ as Windows DLL](./getshell/templates/reverse/connector/windows-cpp/)
+- [Cross-platform TCP reverse shell with Cosmopolitan Libc](./getshell/templates/reverse/connector/cosmopolitan/)
+- [TCP reverse shell in Go](./getshell/templates/reverse/connector/golang/)
+- [Reverse shell listener with Tmux and Socat](./getshell/templates/reverse/listener/tmux-socat-multiplexer/)
+- [Python ELF loader via `memfd_create()` on Linux](./getshell/templates/exec/memfd-create.py)
+- [Python shellcode loader on Linux](./getshell/templates/exec/mmap-ctype.py)
+- [Meterpreter loader for Windows](./getshell/templates/exec/windows-minildr/)
 
 ## Tips
 
